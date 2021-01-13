@@ -1,5 +1,5 @@
 <template>
-  <button v-on:click="chat" class="button is-rounded">채팅</button>
+  <router-link to="/chat" class="button is-rounded">채팅</router-link>
 </template>
 
 <script>
@@ -7,11 +7,6 @@
     name: 'HelloWorld',
     props: {
       msg: String,
-    },
-    methods: {
-      chat: function() {
-        console.log(this);
-      },
     },
   };
 </script>

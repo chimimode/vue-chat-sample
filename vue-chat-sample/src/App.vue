@@ -1,18 +1,11 @@
 <template>
-  <List />
-  <HelloWorld msg="Welcome to Your Vue.js App" />
+  <router-view />
 </template>
 
 <script>
-  import HelloWorld from './components/HelloWorld.vue';
-  import List from './components/List.vue';
-
   export default {
     name: 'App',
-    components: {
-      HelloWorld,
-      List,
-    },
+    components: {},
   };
 </script>
 
