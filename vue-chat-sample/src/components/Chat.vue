@@ -60,7 +60,6 @@
     data() {
       return {
         socketId: '',
-        questions: {},
         talk: [],
         messageList: [],
         message: '',
