@@ -14,6 +14,9 @@ const store = createStore({
     },
     getAnswerByQuestion: (state) => (type, question) => {
       return state.questions[type].find((list) => list.question === question).answer || '다시 입력 해 주세요'
+    },
+    getTypeByQuestion: (state) => (type, question) => {
+      return state.questions[type].find((list) => list.question === question).type
     }
   },
   actions: {

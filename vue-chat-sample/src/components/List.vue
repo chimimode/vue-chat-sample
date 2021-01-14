@@ -10,24 +10,19 @@
           <div id="chat" class="card-content">
             <div class="content">
               <router-link to="/chat?type=faq" class="panel-block is-active">
-                <span class="panel-icon">
-                  <i class="fas fa-book" aria-hidden="true"></i>
-                </span>
                 FAQ
               </router-link>
 
               <router-link to="/chat?type=mobile" class="panel-block is-active">
-                <span class="panel-icon">
-                  <i class="fas fa-book" aria-hidden="true"></i>
-                </span>
                 모바일
               </router-link>
 
               <router-link to="/chat?type=pc" class="panel-block is-active">
-                <span class="panel-icon">
-                  <i class="fas fa-book" aria-hidden="true"></i>
-                </span>
                 PC
+              </router-link>
+
+              <router-link to="/setting" class="panel-block is-active">
+                MY INFO
               </router-link>
             </div>
           </div>
