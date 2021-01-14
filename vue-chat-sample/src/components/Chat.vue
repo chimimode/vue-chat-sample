@@ -10,22 +10,8 @@
             </div>
           </header>
 
-          <div id="chat" class="card-content">
-            <div class="content">
-              <div class="columns">
-                <div v-for="msg in talk" :key="msg">
-                  <div class="column is-narrow" :class="{ mymessage: !msg.isAuth }">
-                    <div class="box" style="width: 250px;">
-                      <p v-if="msg.isAuth" class="title is-5">admin</p>
-                      <p class="subtitle">{{ msg.message }}</p>
-                    </div>
-                  </div>
-                </div>
+          <talk :talk="messageList" @message="(text) => clientMessage(text)" />
 
-                <talk :talk="messageList" @message="(text) => clientMessage(text)" />
-              </div>
-            </div>
-          </div>
           <footer class="card-footer">
             <input class="input" type="text" @keyup.enter="clientMessage()" v-model="message" placeholder="message" />
             <button @click="clientMessage()" class="button is-primary">
@@ -140,10 +126,6 @@
 <style>
   .section {
     width: 470px;
-  }
-  .card-content {
-    height: 500px;
-    overflow-y: scroll;
   }
   .columns {
     display: block !important;
