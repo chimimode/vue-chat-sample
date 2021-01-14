@@ -11,6 +11,5 @@ export const TEST_GLOBAL= {
   API: {
     LOCAL: 'http://localhost:3000/',
     TEST: 'http://ec2-18-218-136-128.us-east-2.compute.amazonaws.com:3000/',
-    STATIC: ''
   }
 };

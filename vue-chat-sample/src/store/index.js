@@ -13,7 +13,12 @@ const store = createStore({
       return state.questions[type]
     },
     getAnswerByQuestion: (state) => (type, question) => {
-      return state.questions[type].find((list) => list.question === question).answer || '다시 입력 해 주세요'
+      try {
+        return state.questions[type].find((list) => list.question === question).answer;
+      }
+      catch(error) {
+        return {'type': 'text', 'text': '다시 입력 해 주세요..'};
+      }
     },
     getTypeByQuestion: (state) => (type, question) => {
       return state.questions[type].find((list) => list.question === question).type
