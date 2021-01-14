@@ -2,17 +2,27 @@
   <div id="chat" class="card-content">
     <div class="content">
       <div class="columns">
-        <div id="test" v-for="message in talk" :key="message">
-          <div class="column" :class="{ mymessage: !message.isAuth }">
-            <div class="box">
-              <p v-if="message.isAuth" class="title is-5">Admin</p>
-              <p class="subtitle">{{ message.message }}</p>
-              <div v-if="message.isAuth" class="field is-grouped is-grouped-multiline">
-                <p v-for="question in message.questions" :key="question" class="control">
-                  <a @click="clientMessage(question.question)" class="button is-primary is-outlined">
-                    {{ question.question }}
-                  </a>
-                </p>
+        <div v-for="message in talk" :key="message">
+          <div class="column">
+            <div class="media" :class="{ mymessage: !message.isAuth }">
+              <div v-if="message.isAuth" class="media-left">
+                <div class="image is-48x48">
+                  <img class="is-rounded" src="https://bulma.io/images/placeholders/48x48.png" />
+                </div>
+                <div class="media-content">
+                  Admin
+                </div>
+              </div>
+
+              <div class="box">
+                <p class="subtitle">{{ message.message }}</p>
+                <div v-if="message.isAuth" class="field is-grouped is-grouped-multiline">
+                  <p v-for="question in message.questions" :key="question" class="control">
+                    <a @click="clientMessage(question.question)" class="button is-primary is-outlined">
+                      {{ question.question }}
+                    </a>
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -49,13 +59,17 @@
   .card-content {
     height: 500px;
     overflow-y: scroll;
+    overflow-x: hidden;
     scroll-behavior: smooth;
   }
-  .colum {
-    display: inline-block;
+  .column {
+    display: flow-root;
+  }
+  .mymessage {
+    float: right;
   }
   .mymessage .box {
     background-color: hsl(171, 100%, 41%);
-    width: 70%;
+    position: relative;
   }
 </style>
