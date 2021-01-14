@@ -1,5 +1,5 @@
 import {createRouter, createWebHistory} from 'vue-router'
-import main from '../components/HelloWorld.vue';
+import List from '../components/List.vue';
 import Chat from '../components/Chat.vue';
 
 const router = createRouter({
@@ -7,7 +7,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      component: main,
+      component: List,
       name: 'main'
     },
     {

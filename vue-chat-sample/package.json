@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "chat": "node server.js"
+    "chat": "nodemon server.js"
   },
   "dependencies": {
     "core-js": "^3.6.5",
@@ -24,7 +24,8 @@
     "@vue/compiler-sfc": "^3.0.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^7.0.0-0"
+    "eslint-plugin-vue": "^7.0.0-0",
+    "nodemon": "^2.0.7"
   },
   "eslintConfig": {
     "root": true,

@@ -1,0 +1,50 @@
+{
+  "questions": {
+    "faq": [
+      {
+        "question": "문의방법",
+        "answer": "01 게임을 선택해주세요. 02 도움말을 선택해주세요. \n03 문의를 접수해주세요."
+      },
+      {
+        "question": "고객상담실 위치",
+        "answer": "경기도 성남시 분당구 판교역로 240(삼평동) \n삼환하이펙스 A동 4층 고객상담실"
+      },
+      {
+        "question": "고객상담실 운영시간",
+        "answer": "평일(월~금) 오전 09:00 ~ 오후 12:30\n오후 01:30 ~ 오후 06:00\n평일 문의접수는 오후 5시에 마감됩니다.\n공휴일, 주말 및 야간에는 운영하지 않습니다."
+      }
+    ],
+    "mobile": [
+      {
+        "question": "메이플스토리M",
+        "answer": "https://cs.nexon.com/HelpBoard/Nexon?gamecode=280"
+      },
+      {
+        "question": "V4",
+        "answer": "https://cs.nexon.com/HelpBoard/Nexon?gamecode=347"
+      },
+      {
+        "question": "다크어벤저3",
+        "answer": "https://cs.nexon.com/HelpBoard/Nexon?gamecode=312"
+      }
+    ],
+    "pc": [
+      {
+        "question": "던전앤파이터",
+        "answer": "https://cs.nexon.com/HelpBoard/Nexon?gamecode=280"
+      },
+      {
+        "question": "메이플스토리",
+        "answer": "https://cs.nexon.com/HelpBoard/Nexon?gamecode=347"
+      },
+      {
+        "question": "서든어택",
+        "answer": "https://cs.nexon.com/HelpBoard/Nexon?gamecode=347"
+      },
+      {
+        "question": "FIFA온라인4",
+        "answer": "https://cs.nexon.com/HelpBoard/Nexon?gamecode=312"
+      }
+    ]
+  }
+}

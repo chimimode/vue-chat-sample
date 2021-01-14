@@ -13,36 +13,7 @@
           <div id="chat" class="card-content">
             <div class="content">
               <div class="columns">
-                <div class="column">
-                  <div class="box">
-                    <p class="title is-5">Flexible column</p>
-                    <p class="subtitle">This column will take up the remaining space available.</p>
-                    <div class="field is-grouped is-grouped-multiline">
-                      <p class="control">
-                        <a class="button is-primary is-outlined">
-                          One
-                        </a>
-                      </p>
-                      <p class="control">
-                        <a class="button is-primary is-outlined">
-                          Two
-                        </a>
-                      </p>
-                      <p class="control">
-                        <a class="button is-primary is-outlined">
-                          Three
-                        </a>
-                      </p>
-                      <p class="control">
-                        <a class="button is-primary is-outlined">
-                          Four
-                        </a>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div v-for="msg in list" v-bind:key="msg">
+                <div v-for="msg in talk" :key="msg">
                   <div class="column is-narrow" :class="{ mymessage: !msg.isAuth }">
                     <div class="box" style="width: 250px;">
                       <p v-if="msg.isAuth" class="title is-5">admin</p>
@@ -50,12 +21,14 @@
                     </div>
                   </div>
                 </div>
+
+                <talk :talk="messageList" @message="(text) => clientMessage(text)" />
               </div>
             </div>
           </div>
           <footer class="card-footer">
-            <input class="input" type="text" @keyup.enter="sendMessage()" v-model="message" placeholder="message" />
-            <button @click="sendMessage()" class="button is-primary">
+            <input class="input" type="text" @keyup.enter="clientMessage()" v-model="message" placeholder="message" />
+            <button @click="clientMessage()" class="button is-primary">
               전송
             </button>
           </footer>
@@ -67,7 +40,15 @@
 
 <script>
   import io from 'socket.io-client';
+  //import { ref, onMounted, onUpdated } from 'vue';
   import { useStore } from 'vuex';
+  import { useRoute } from 'vue-router';
+  import Talk from './Message';
+
+  //let store = useStore();
+  //let route = useRoute();
+
+  let store, route;
 
   const socket = io('http://localhost:3000/', {
     withCredentials: true,
@@ -75,55 +56,83 @@
 
   export default {
     name: 'chat',
-    props: {},
+    components: { Talk },
     data() {
       return {
-        // socketId: '',
-        list: [],
+        socketId: '',
+        questions: {},
+        talk: [],
+        messageList: [],
+        message: '',
+        questionsData: [],
       };
     },
     created() {
+      route = useRoute();
+      store = useStore();
+
+      this.getQuestions();
+      this.serverMessage();
       console.log('created');
 
       socket.on('connect', () => {
-        console.log(socket.id);
-        this.socketId = socket.id;
-
-        //chatData.commit('setId', socket.id);
+        //console.log(socket.id);
+        //this.socketId = socket.id;
       });
 
-      socket.on('chat message', (message) => {
-        console.log(message);
+      socket.on('chat message', () => {
+        //
       });
+    },
+    mounted() {
+      console.log('mounted');
     },
     updated() {
       console.log('updated');
       this.$el.querySelector('#chat').scrollTop = this.$el.querySelector('#chat').scrollHeight;
     },
-    mounted() {
-      console.log('mounted');
-    },
-    setup() {
-      const store = useStore();
-      const getSocketId = () => {
-        return store.state.socketId;
-      };
-      const setSocketId = () => {
-        store.dispatch('', socket.id);
-      };
-      return {
-        getSocketId,
-        setSocketId,
-      };
-    },
     methods: {
-      sendMessage() {
-        if (this.message.length > 0) {
-          socket.emit('chat message', this.message);
-          this.list.push({ isAuth: false, message: this.message });
+      serverMessage() {
+        this.messageList.push({
+          isAuth: true,
+          message: route.query.type,
+          questions: store.getters.getQuestionsByType(route.query.type) || [],
+        });
+      },
+
+      clientMessage(text) {
+        if (this.message.length > 0 || text) {
+          let message = this.message || text;
+          socket.emit('chat message', { isAuth: false, message: message });
+          this.messageList.push({ isAuth: false, message: message });
 
           this.message = '';
+
+          this.answerMessage(message);
         }
+        //this.$nextTick(function() {
+        //  console.log('??'); // => '갱신됨'
+        //});
+      },
+
+      answerMessage(question) {
+        this.messageList.push({
+          isAuth: true,
+          message: store.getters.getAnswerByQuestion(route.query.type, question),
+          questions: [],
+        });
+
+        this.serverMessage();
+      },
+
+      getQuestions() {
+        return fetch('http://localhost:3000/static/questions.json').then((response) => {
+          response.json().then((data) => {
+            this.questionsData = data.questions;
+            //loading.value = false;
+            store.dispatch('setQuestions', this.questionsData);
+          });
+        });
       },
     },
   };
@@ -133,20 +142,14 @@
   .section {
     width: 470px;
   }
-  .message {
-    max-width: 60%;
-  }
   .card-content {
     height: 500px;
     overflow-y: scroll;
   }
-  .colum {
-    display: inline-block;
+  .columns {
+    display: block !important;
   }
-  .mymessage {
-    float: right;
-  }
-  .mymessage .box {
-    background-color: hsl(204, 71%, 73%);
+  .subtitle {
+    font-size: 1rem;
   }
 </style>

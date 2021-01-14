@@ -3,19 +3,34 @@ import { createStore } from 'vuex';
 const store = createStore({
   state: {
     socketId: '',
+    questions: {}
   },
   getters: {
     getSocketId: (state) => {
       return state.socketId;
+    },
+    getQuestionsByType: (state) => (type) => {
+      return state.questions[type]
+    },
+    getAnswerByQuestion: (state) => (type, question) => {
+      return state.questions[type].find((list) => list.question === question).answer || '다시 입력 해 주세요'
     }
   },
-  action: {
-    
+  actions: {
+    SocketId({commit}, id) {
+      commit(id);
+    },
+    setQuestions({commit}, questions) {
+      commit('setQuestions', questions);
+    },
   },
   mutations: {
-    setId(socketId, id) {
-      socketId = id;
+    setSocketId(state, id) {
+      state.socketId = id;
     },
+    setQuestions(state, questions) {
+      state.questions = questions;
+    }
   },
 });
 
