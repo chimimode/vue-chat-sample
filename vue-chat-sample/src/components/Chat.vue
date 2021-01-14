@@ -4,13 +4,13 @@
       <div class="container">
         <div class="card">
           <header class="card-header">
-            <p class="card-header-title">Channel - {{ socketId }}</p>
+            <p class="card-header-title">Channel - {{ channelId }}</p>
             <div class="card-header-icon">
               <router-link to="/" class="delete"></router-link>
             </div>
           </header>
 
-          <talk :talk="messageList" @message="(text) => clientMessage(text)" />
+          <message-text :talk="messageList" @message="(text) => clientMessage(text)" />
 
           <footer class="card-footer">
             <input class="input" type="text" @keyup.enter="clientMessage()" v-model="message" placeholder="message" />
@@ -26,10 +26,9 @@
 
 <script>
   import io from 'socket.io-client';
-  //import { ref, onMounted, onUpdated } from 'vue';
   import { useStore } from 'vuex';
   import { useRoute } from 'vue-router';
-  import Talk from './Message';
+  import MessageText from './Message';
 
   //let store = useStore();
   //let route = useRoute();
@@ -42,36 +41,48 @@
 
   export default {
     name: 'chat',
-    components: { Talk },
+    components: { MessageText },
     data() {
       return {
         socketId: '',
-        talk: [],
+        channelId: '',
         messageList: [],
         message: '',
-        questionsData: [],
       };
     },
     created() {
+      console.log('created');
       route = useRoute();
       store = useStore();
 
-      this.getQuestions();
-      this.serverMessage();
+      let dataFetch = this.getQuestions();
+
+      dataFetch.then(() => {
+        console.log('ok');
+        this.serverMessage();
+      });
+
+      console.log(dataFetch);
+
+      this.channelId = route.query.type;
 
       socket.on('connect', () => {
         //console.log(socket.id);
-        //this.socketId = socket.id;
+        this.socketId = socket.id;
+        store.dispatch('setSocketId', socket.id);
       });
 
       socket.on('chat message', () => {
         //
       });
     },
-    mounted() {},
+    mounted() {
+      console.log('mounted');
+    },
     updated() {},
     methods: {
       serverMessage() {
+        console.log('serverMessage');
         this.messageList.push({
           isAuth: true,
           message: route.query.type,
@@ -82,6 +93,7 @@
       clientMessage(text) {
         if (this.message.length > 0 || text) {
           let message = this.message || text;
+
           socket.emit('chat message', { isAuth: false, message: message });
           this.messageList.push({ isAuth: false, message: message });
 
@@ -89,9 +101,6 @@
 
           this.answerMessage(message);
         }
-        //this.$nextTick(function() {
-        //  console.log('??'); // => '갱신됨'
-        //});
       },
 
       answerMessage(question) {
@@ -107,9 +116,7 @@
       getQuestions() {
         return fetch('http://localhost:3000/static/questions.json').then((response) => {
           response.json().then((data) => {
-            this.questionsData = data.questions;
-            //loading.value = false;
-            store.dispatch('setQuestions', this.questionsData);
+            store.dispatch('setQuestions', data.questions);
           });
         });
       },

@@ -24,7 +24,7 @@
 
 <script>
   export default {
-    name: 'talk',
+    name: 'message-text',
     emits: {
       message: null,
     },

@@ -17,8 +17,8 @@ const store = createStore({
     }
   },
   actions: {
-    SocketId({commit}, id) {
-      commit(id);
+    setSocketId({commit}, id) {
+      commit('setSocketId', id);
     },
     setQuestions({commit}, questions) {
       commit('setQuestions', questions);
