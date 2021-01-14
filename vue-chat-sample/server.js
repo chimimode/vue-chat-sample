@@ -2,7 +2,12 @@ const express = require('express');
 const app = express();
 const http = require('http').createServer(app);
 const cors = require('cors');
-const io = require('socket.io')(http);
+const io = require('socket.io')(http, {
+  cors: {
+    origin: '*',
+    methods: ['GET']
+  }
+});
 
 app.use(cors());
 app.use('/static', express.static(__dirname + '/src/static/'));
