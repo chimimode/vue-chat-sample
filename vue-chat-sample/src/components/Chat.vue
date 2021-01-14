@@ -49,7 +49,7 @@
     components: { MessageText },
     data() {
       return {
-        Global: {},
+        global: {},
         timer: null,
         settingData: null,
         socketId: '',
@@ -60,8 +60,8 @@
       };
     },
     created() {
-      this.Global = TEST_GLOBAL;
-      this.settingData = JSON.parse(localStorage.getItem(this.Global.STORAGE.KEY));
+      this.global = TEST_GLOBAL;
+      this.settingData = JSON.parse(localStorage.getItem(this.global.STORAGE.KEY));
 
       route = useRoute();
       store = useStore();
@@ -127,7 +127,7 @@
           this.clearTimer();
           setTimeout(() => {
             this.answerMessage(message);
-          }, this.Global.CHAT.TIMER);
+          }, this.global.CHAT.TIMER);
         }
       },
 
@@ -144,11 +144,11 @@
         setTimeout(() => {
           this.serverMessage();
           this.isLoading = false;
-        }, this.Global.CHAT.TIMER);
+        }, this.global.CHAT.TIMER);
       },
 
       getQuestions() {
-        return fetch(`${this.Global.API.LOCAL}static/questions.json`).then((response) => {
+        return fetch(`${this.global.API.LOCAL}static/questions.json`).then((response) => {
           response.json().then((data) => {
             store.dispatch('setQuestions', data.questions);
           });
@@ -159,8 +159,8 @@
 </script>
 
 <style>
-  .section {
-    width: 470px;
+  .container {
+    max-width: 400px !important;
   }
   .columns {
     display: block !important;

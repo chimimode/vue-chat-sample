@@ -60,7 +60,7 @@
     name: 'message-text',
     data() {
       return {
-        Global: {},
+        global: {},
         settingData: null,
       };
     },
@@ -72,8 +72,8 @@
       talk: { type: Array, default: () => [] },
     },
     created() {
-      this.Global = TEST_GLOBAL;
-      this.settingData = JSON.parse(localStorage.getItem(this.Global.STORAGE.KEY));
+      this.global = TEST_GLOBAL;
+      this.settingData = JSON.parse(localStorage.getItem(this.global.STORAGE.KEY));
     },
     updated() {
       this.$el.scrollTop = this.$el.scrollHeight;
@@ -87,9 +87,6 @@
 </script>
 
 <style>
-  .section {
-    width: 470px;
-  }
   .card-content {
     height: 500px;
     overflow-y: scroll;

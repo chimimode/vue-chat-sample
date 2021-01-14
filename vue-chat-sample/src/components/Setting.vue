@@ -25,7 +25,7 @@
               </div>
 
               <div class="panel-block is-active">
-                <button @click="saveSettings(Global.STORAGE.KEY)" class="button is-primary">
+                <button @click="saveSettings(global.STORAGE.KEY)" class="button is-primary">
                   저장
                 </button>
               </div>
@@ -44,20 +44,20 @@
     name: 'Setting',
     data() {
       return {
-        Global: {},
+        global: {},
         isNoticeOpen: false,
         userNickname: '',
         settingData: [],
       };
     },
     created() {
-      this.Global = TEST_GLOBAL;
+      this.global = TEST_GLOBAL;
     },
 
     mounted() {
-      if (this.loadSettings(this.Global.STORAGE.KEY)) {
-        this.isNoticeOpen = this.loadSettings(this.Global.STORAGE.KEY)[0].isNoticeOpen;
-        this.userNickname = this.loadSettings(this.Global.STORAGE.KEY)[0].userNickname;
+      if (this.loadSettings(this.global.STORAGE.KEY)) {
+        this.isNoticeOpen = this.loadSettings(this.global.STORAGE.KEY)[0].isNoticeOpen;
+        this.userNickname = this.loadSettings(this.global.STORAGE.KEY)[0].userNickname;
       }
     },
     methods: {
@@ -66,9 +66,9 @@
       },
 
       saveSettings(key) {
-        this.removeSettings(this.Global.STORAGE.KEY);
+        this.removeSettings(this.global.STORAGE.KEY);
 
-        if (this.loadSettings(this.Global.STORAGE.KEY) === null) {
+        if (this.loadSettings(this.global.STORAGE.KEY) === null) {
           this.settingData = [];
           this.settingData.push({ isNoticeOpen: this.isNoticeOpen, userNickname: this.userNickname });
 
