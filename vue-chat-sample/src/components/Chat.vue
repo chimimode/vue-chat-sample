@@ -40,7 +40,7 @@
 
   let store, route;
 
-  const socket = io('http://ec2-18-218-136-128.us-east-2.compute.amazonaws.com:3000/', {
+  const socket = io(TEST_GLOBAL.API.LOCAL, {
     withCredentials: true,
   });
 
@@ -148,8 +148,7 @@
       },
 
       getQuestions() {
-        //return fetch('http://ec2-18-218-136-128.us-east-2.compute.amazonaws.com:3000/static/questions.json').then(
-        return fetch(`${this.Global.API.TEST}static/questions.json`).then((response) => {
+        return fetch(`${this.Global.API.LOCAL}static/questions.json`).then((response) => {
           response.json().then((data) => {
             store.dispatch('setQuestions', data.questions);
           });

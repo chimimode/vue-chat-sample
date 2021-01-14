@@ -4,8 +4,9 @@ const http = require('http').createServer(app);
 const cors = require('cors');
 const io = require('socket.io')(http, {
   cors: {
-    origin: '*',
-    methods: ['GET']
+    origin: 'http://test-front.s3.ap-northeast-2.amazonaws.com/',
+    methods: ['GET', 'POST'],
+    credentials: true
   }
 });
 
