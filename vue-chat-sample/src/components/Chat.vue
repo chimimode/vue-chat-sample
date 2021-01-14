@@ -4,7 +4,7 @@
       <div class="container">
         <div class="card">
           <header class="card-header">
-            <p class="card-header-title">Component - {{ socketId }}</p>
+            <p class="card-header-title">Channel - {{ socketId }}</p>
             <div class="card-header-icon">
               <router-link to="/" class="delete"></router-link>
             </div>
@@ -58,7 +58,6 @@
 
       this.getQuestions();
       this.serverMessage();
-      console.log('created');
 
       socket.on('connect', () => {
         //console.log(socket.id);
@@ -69,13 +68,8 @@
         //
       });
     },
-    mounted() {
-      console.log('mounted');
-    },
-    updated() {
-      console.log('updated');
-      this.$el.querySelector('#chat').scrollTop = this.$el.querySelector('#chat').scrollHeight;
-    },
+    mounted() {},
+    updated() {},
     methods: {
       serverMessage() {
         this.messageList.push({

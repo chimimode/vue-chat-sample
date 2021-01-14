@@ -32,7 +32,6 @@
       talk: { type: Array, default: () => [] },
     },
     updated() {
-      console.log('updated');
       this.$el.scrollTop = this.$el.scrollHeight;
     },
     methods: {
@@ -50,6 +49,7 @@
   .card-content {
     height: 500px;
     overflow-y: scroll;
+    scroll-behavior: smooth;
   }
   .colum {
     display: inline-block;
