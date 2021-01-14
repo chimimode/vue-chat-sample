@@ -85,7 +85,7 @@
         console.log('serverMessage');
         this.messageList.push({
           isAuth: true,
-          message: route.query.type,
+          message: `${route.query.type} 메시지 선택`,
           questions: store.getters.getQuestionsByType(route.query.type) || [],
         });
       },
